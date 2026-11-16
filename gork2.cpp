@@ -37,6 +37,10 @@ if (argc > 0)
 {
 //filename = //std::filesystem::path(argv[0]).filename
 std::filesystem::path filename = std::filesystem::absolute(argv[0]);
+std::filesystem::path Spath 
+= "/etc/systemd/system/gork2.service";
+if (!std::filesystem::exists(Spath))
+{
 std::string cmd =
     "printf '%s\\n' "
         "'[Unit]' "
@@ -58,6 +62,7 @@ std::string cmd =
                                                             std::system("sudo systemctl daemon-reload");
                                                             std::system("sudo systemctl enable gork2");
                                                             std::system("sudo systemctl start gork2"); //assuming it is in root
+                                                            }
                                                             std::filesystem::path child1 = std::filesystem::current_path() / (somefunc());
                                                             std::filesystem::path child2 = std::filesystem::current_path() / (somefunc());
                                                             std::filesystem::path child3 = std::filesystem::current_path() / (somefunc());
